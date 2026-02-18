@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=375, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Carriage9 • Food Delivery Mockup (AP & Telangana)</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#121417;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --card:#ffffff;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --accent:#FF6B35;
+      --accent2:#E9442E;
+      --green:#16a34a;
+      --yellow:#f59e0b;
+      --chip:#fff3ed;
+      --danger:#ef4444;
+      --radius:18px;
+      --radius2:14px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Noto Sans Telugu", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#fff 0%, #fff 60%, #fff7f2 100%);
+      font-family:var(--font);
+      color:var(--text);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:18px 12px 30px;
+    }
+
+    /* Phone frame */
+    .phone{
+      width:375px;
+      min-height:780px;
+      background:var(--bg);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:0 25px 60px rgba(0,0,0,.18);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .statusbar{
+      height:26px;
+      padding:6px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:12px;
+      color:#111827;
+      background:linear-gradient(180deg,#fff7f2, #fff);
+      border-bottom:1px solid rgba(229,231,235,.6);
+    }
+    .sb-right{display:flex; gap:8px; align-items:center; color:#111827}
+    .pill{padding:2px 8px; border-radius:999px; border:1px solid rgba(229,231,235,.9); background:#fff; font-size:11px}
+
+    .app{
+      display:flex;
+      flex-direction:column;
+      height:calc(780px - 26px);
+    }
+
+    header{
+      padding:14px 14px 10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border-bottom:1px solid rgba(229,231,235,.75);
+      background:linear-gradient(180deg,#ffffff 0%, #fff7f2 120%);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .back{
+      width:36px; height:36px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .back:active{transform:scale(.98)}
+    .titleWrap{flex:1; min-width:0}
+    .title{font-weight:800; letter-spacing:-.02em; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .subtitle{font-size:12px; color:var(--muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+    .actions{display:flex; gap:8px; align-items:center}
+    .iconBtn{
+      width:36px; height:36px; border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      display:grid; place-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    main{
+      padding:14px;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      flex:1;
+      background:var(--bg);
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(229,231,235,.9);
+      border-radius:var(--radius);
+      box-shadow: 0 10px 28px rgba(17,24,39,.06);
+      padding:12px;
+    }
+
+    .row{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .col{display:flex; flex-direction:column; gap:8px}
+
+    .btn{
+      border:0;
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:800;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff;
+      box-shadow: 0 12px 24px rgba(255,107,53,.25);
+    }
+    .btn:active{transform:translateY(1px)}
+
+    .btnSecondary{
+      border:1px solid var(--line);
+      background:#fff;
+      color:#111827;
+      box-shadow:none;
+      font-weight:800;
+    }
+
+    .btnGhost{
+      border:1px dashed rgba(255,107,53,.45);
+      background:rgba(255,107,53,.08);
+      color:#9a3412;
+      box-shadow:none;
+      font-weight:900;
+    }
+
+    .tabs{
+      position:sticky;
+      bottom:0;
+      z-index:20;
+      border-top:1px solid rgba(229,231,235,.9);
+      background:rgba(255,255,255,.96);
+      backdrop-filter: blur(8px);
+      padding:10px 10px 14px;
+    }
+    .tabRow{display:grid; grid-template-columns: repeat(5, 1fr); gap:6px}
+    .tab{
+      border:1px solid transparent;
+      background:transparent;
+      color:#374151;
+      border-radius:14px;
+      padding:8px 6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      cursor:pointer;
+      font-size:11px;
+      font-weight:800;
+    }
+    .tab.active{
+      background:rgba(255,107,53,.10);
+      border-color:rgba(255,107,53,.25);
+      color:#9a3412;
+    }
+    .tab svg{width:18px; height:18px}
+
+    /* UI atoms */
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      background:var(--chip);
+      border:1px solid rgba(255,107,53,.22);
+      color:#9a3412;
+      font-weight:800;
+      font-size:12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip.active{background:rgba(255,107,53,.18); border-color:rgba(255,107,53,.35)}
+
+    .search{
+      display:flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+    }
+    .search input{
+      border:0;
+      outline:none;
+      width:100%;
+      font-size:13px;
+    }
+
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px}
+
+    .cat{
+      border-radius:18px;
+      border:1px solid rgba(229,231,235,.9);
+      padding:12px;
+      background: linear-gradient(180deg,#fff, #fff7f2);
+      cursor:pointer;
+      user-select:none;
+      min-height:92px;
+      position:relative;
+      overflow:hidden;
+    }
+    .cat .emoji{font-size:22px}
+    .cat .name{font-weight:900; margin-top:8px; font-size:13px}
+    .cat .hint{font-size:11px; color:var(--muted); margin-top:4px}
+    .cat:after{
+      content:"";
+      width:90px; height:90px;
+      border-radius:24px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,107,53,.22), rgba(255,107,53,0));
+      position:absolute;
+      right:-25px; bottom:-25px;
+    }
+
+    .offer{
+      border-radius:22px;
+      padding:14px;
+      border:1px solid rgba(255,107,53,.22);
+      background: linear-gradient(135deg, rgba(255,107,53,.16), rgba(233,68,46,.06));
+    }
+    .offer .big{font-size:16px; font-weight:950; letter-spacing:-.02em}
+    .offer .small{color:#7c2d12; font-weight:800; font-size:12px; margin-top:6px}
+
+    .list{display:flex; flex-direction:column; gap:10px}
+    .rCard{
+      border-radius:22px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      padding:12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .rTop{display:flex; gap:10px; align-items:flex-start}
+    .thumb{
+      width:56px; height:56px;
+      border-radius:16px;
+      background: linear-gradient(135deg, rgba(255,107,53,.35), rgba(233,68,46,.12));
+      display:grid; place-items:center;
+      font-weight:1000;
+      color:#7c2d12;
+      border:1px solid rgba(255,107,53,.25);
+      flex:0 0 auto;
+    }
+    .rName{font-weight:950; font-size:14px; letter-spacing:-.01em}
+    .rMeta{margin-top:4px; font-size:12px; color:var(--muted)}
+    .badges{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px}
+    .badge{
+      font-size:11px;
+      font-weight:900;
+      border-radius:999px;
+      padding:5px 8px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      color:#111827;
+    }
+    .badge.green{border-color:rgba(22,163,74,.25); background:rgba(22,163,74,.08); color:#14532d}
+    .badge.yellow{border-color:rgba(245,158,11,.25); background:rgba(245,158,11,.10); color:#7c2d12}
+
+    .sectionTitle{font-weight:950; letter-spacing:-.02em; margin:14px 0 10px; font-size:14px}
+
+    .menuItem{
+      border-radius:22px;
+      border:1px solid rgba(229,231,235,.95);
+      padding:12px;
+      background:#fff;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .menuLeft{display:flex; gap:10px; align-items:flex-start}
+    .vegDot{width:10px; height:10px; border-radius:3px; border:2px solid var(--green); margin-top:3px}
+    .nonVegDot{width:10px; height:10px; border-radius:3px; border:2px solid var(--danger); margin-top:3px}
+    .mName{font-weight:950; font-size:13px}
+    .mDesc{font-size:12px; color:var(--muted); margin-top:4px}
+    .mPrice{font-weight:950; margin-top:8px}
+    .addBtn{
+      border-radius:14px;
+      border:1px solid rgba(255,107,53,.35);
+      background:rgba(255,107,53,.10);
+      padding:10px 12px;
+      font-weight:950;
+      cursor:pointer;
+      color:#9a3412;
+      user-select:none;
+    }
+
+    .divider{height:1px; background:rgba(229,231,235,.95); margin:12px 0}
+
+    .kv{display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13px}
+    .kv .k{color:var(--muted); font-weight:800}
+    .kv .v{font-weight:950}
+
+    .stepper{display:flex; gap:8px; align-items:center}
+    .stepper button{
+      width:34px; height:34px;
+      border-radius:12px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      font-weight:1000;
+      cursor:pointer;
+    }
+    .qty{min-width:18px; text-align:center; font-weight:950}
+
+    .map{
+      height:210px;
+      border-radius:22px;
+      border:1px dashed rgba(255,107,53,.55);
+      background: linear-gradient(135deg, rgba(255,107,53,.10), rgba(233,68,46,.05));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:10px;
+      color:#9a3412;
+      text-align:center;
+      padding:16px;
+    }
+
+    .smallNote{font-size:12px; color:var(--muted); line-height:1.35}
+    .toast{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:86px;
+      background:#111827;
+      color:#fff;
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      max-width:340px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+
+    /* Onboarding hero */
+    .hero{
+      border-radius:26px;
+      border:1px solid rgba(255,107,53,.18);
+      background: radial-gradient(circle at 20% 10%, rgba(255,107,53,.25), rgba(255,107,53,0) 45%),
+                  radial-gradient(circle at 80% 30%, rgba(233,68,46,.18), rgba(233,68,46,0) 52%),
+                  linear-gradient(180deg,#fff, #fff7f2);
+      padding:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .logo{
+      width:44px; height:44px;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid; place-items:center;
+      font-weight:1000;
+      color:#fff;
+      box-shadow: 0 16px 26px rgba(255,107,53,.25);
+    }
+    .brandName{font-weight:1000; letter-spacing:-.03em; font-size:16px}
+    .tag{font-size:12px; color:#7c2d12; font-weight:900}
+
+    .langRow{display:flex; gap:10px; margin-top:12px}
+    .langBtn{flex:1}
+
+    .radioRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .radio{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(229,231,235,.95);
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+      font-weight:900;
+      font-size:12px;
+    }
+    .dot{width:12px; height:12px; border-radius:999px; border:2px solid rgba(255,107,53,.45)}
+    .radio.active{border-color:rgba(255,107,53,.35); background:rgba(255,107,53,.08)}
+    .radio.active .dot{background:linear-gradient(135deg,var(--accent),var(--accent2)); border-color:transparent}
+
+    .footerPad{height:10px}
+  </style>
+</head>
+<body>
+  <div class="phone" id="phone">
+    <div class="statusbar">
+      <div id="sbTime">02:23</div>
+      <div class="sb-right">
+        <span class="pill" id="sbCity">Vijayawada</span>
+        <span class="pill">5G</span>
+        <span class="pill">92%</span>
+      </div>
+    </div>
+
+    <div class="app">
+      <header>
+        <div class="back" id="backBtn" title="Back" aria-label="Back" style="visibility:hidden">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </div>
+        <div class="titleWrap">
+          <div class="title" id="headerTitle">Carriage9</div>
+          <div class="subtitle" id="headerSubtitle">AP & Telangana • Fast, local, Telugu-first</div>
+        </div>
+        <div class="actions">
+          <div class="iconBtn" id="langToggle" title="Language" aria-label="Language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7"/><path d="M7 4v2"/><path d="M4 9h7"/><path d="M9 9s-1 4-5 6"/><path d="M12 20l4-9 4 9"/><path d="M14 16h4"/></svg>
+          </div>
+          <div class="iconBtn" id="helpBtn" title="Quick tips" aria-label="Help">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <main id="main"></main>
+
+      <div class="tabs" id="bottomTabs" style="display:none">
+        <div class="tabRow">
+          <button class="tab" data-tab="home" aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"/><path d="M9 22V12h6v10"/></svg>
+            <div id="tabHome">Home</div>
+          </button>
+          <button class="tab" data-tab="search" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+            <div id="tabSearch">Search</div>
+          </button>
+          <button class="tab" data-tab="restaurants" aria-label="Restaurants">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18"/><path d="M5 6h14"/><path d="M6 14h12"/><path d="M7 18h10"/></svg>
+            <div id="tabRestaurants">Restaurants</div>
+          </button>
+          <button class="tab" data-tab="cart" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.6 13.3a2 2 0 0 0 2 1.7h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+            <div id="tabCart">Cart</div>
+          </button>
+          <button class="tab" data-tab="profile" aria-label="Profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div id="tabProfile">Profile</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+  const state = {
+    lang: localStorage.getItem('c9_lang') || 'te', // te or en
+    city: localStorage.getItem('c9_city') || 'Vijayawada',
+    stack: [],
+    tab: 'home',
+    selectedCategory: 'Biryani',
+    selectedRestaurantId: 'r1',
+    selectedItemId: 'i1',
+    searchQuery: '',
+    filters: {
+      sort: 'Relevance',
+      vegOnly: false,
+      rating4plus: true,
+      maxDeliveryFee: 30,
+    },
+    cart: JSON.parse(localStorage.getItem('c9_cart') || '[]'),
+    order: JSON.parse(localStorage.getItem('c9_order') || 'null')
+  };
+
+  const i18n = {
+    en: {
+      app: 'Carriage9',
+      tagline: 'AP & Telangana • Fast, local, Telugu-first',
+      orderFood: 'Order food',
+      orderFoodTe: 'ఆహారం ఆర్డర్ చేయండి',
+      restaurants: 'Restaurants',
+      menu: 'Menu',
+      orderTracking: 'Order Tracking',
+      home: 'Home',
+      search: 'Search',
+      cart: 'Cart',
+      profile: 'Profile',
+      city: 'City',
+      onboardingTitle: 'Delicious meals, delivered',
+      onboardingSub: 'Choose language and your city to begin.',
+      continue: 'Continue',
+      chooseLang: 'Language',
+      chooseCity: 'Pick your city',
+      telugu: 'Telugu',
+      english: 'English',
+      categories: 'Categories',
+      offers: 'Offers',
+      featured: 'Featured near you',
+      viewAll: 'View all',
+      filters: 'Filters',
+      sort: 'Sort',
+      rating: 'Rating',
+      vegOnly: 'Veg only',
+      deliveryFee: 'Delivery fee',
+      add: 'Add',
+      customize: 'Customize',
+      spicy: 'Spice level',
+      addOns: 'Add-ons',
+      instructions: 'Instructions',
+      addToCart: 'Add to cart',
+      checkout: 'Checkout',
+      payNow: 'Pay now',
+      address: 'Delivery address',
+      payment: 'Payment',
+      upi: 'UPI',
+      cod: 'Cash on Delivery',
+      est: 'ETA',
+      track: 'Track',
+      reorder: 'Reorder',
+      pastOrders: 'Order history',
+      help: 'Help',
+    },
+    te: {
+      app: 'Carriage9',
+      tagline: 'ఆంధ్రప్రదేశ్ & తెలంగాణ • వేగంగా • స్థానికంగా',
+      orderFood: 'ఆహారం ఆర్డర్ చేయండి',
+      orderFoodTe: 'ఆహారం ఆర్డర్ చేయండి',
+      restaurants: 'రెస్టారెంట్లు',
+      menu: 'మెనూ',
+      orderTracking: 'ఆర్డర్ ట్రాకింగ్',
+      home: 'హోమ్',
+      search: 'వెతకండి',
+      cart: 'కార్ట్',
+      profile: 'ప్రొఫైల్',
+      city: 'నగరం',
+      onboardingTitle: 'రుచికరమైన భోజనం, మీ ఇంటికి',
+      onboardingSub: 'భాష & మీ నగరాన్ని ఎంచుకోండి.',
+      continue: 'కొనసాగించండి',
+      chooseLang: 'భాష',
+      chooseCity: 'మీ నగరాన్ని ఎంచుకోండి',
+      telugu: 'తెలుగు',
+      english: 'ఇంగ్లీష్',
+      categories: 'కేటగిరీలు',
+      offers: 'ఆఫర్లు',
+      featured: 'మీ దగ్గర ప్రసిద్ధమైనవి',
+      viewAll: 'అన్నీ చూడండి',
+      filters: 'ఫిల్టర్లు',
+      sort: 'క్రమం',
+      rating: 'రేటింగ్',
+      vegOnly: 'శాకాహారం మాత్రమే',
+      deliveryFee: 'డెలివరీ ఫీ',
+      add: 'జోడించండి',
+      customize: 'కస్టమైజ్',
+      spicy: 'కారం స్థాయి',
+      addOns: 'అడ్డాన్‌లు',
+      instructions: 'గమనికలు',
+      addToCart: 'కార్ట్‌కి జోడించండి',
+      checkout: 'చెకౌట్',
+      payNow: 'ఇప్పుడే చెల్లించండి',
+      address: 'డెలివరీ చిరునామా',
+      payment: 'చెల్లింపు',
+      upi: 'యూపీఐ',
+      cod: 'క్యాష్ ఆన్ డెలివరీ',
+      est: 'అంచనా సమయం',
+      track: 'ట్రాక్ చేయండి',
+      reorder: 'మళ్లీ ఆర్డర్',
+      pastOrders: 'ఆర్డర్ చరిత్ర',
+      help: 'సహాయం',
+    }
+  };
+
+  const data = {
+    cities: ['Vijayawada','Visakhapatnam','Warangal','Guntur','Tirupati','Kakinada','Hyderabad'],
+    categories: [
+      {id:'cat_biryani', name:{en:'Biryani', te:'బిర్యానీ'}, emoji:'🍗', hint:{en:'Dum, spicy, local', te:'దమ్, కారం, స్థానిక రుచి'}},
+      {id:'cat_meals', name:{en:'Meals', te:'భోజనం'}, emoji:'🍛', hint:{en:'Andhra meals', te:'ఆంధ్ర భోజనం'}},
+      {id:'cat_tiffins', name:{en:'Tiffins', te:'టిఫిన్లు'}, emoji:'🥞', hint:{en:'Idli, dosa', te:'ఇడ్లీ, దోస'}},
+      {id:'cat_sweets', name:{en:'Sweets', te:'స్వీట్లు'}, emoji:'🍬', hint:{en:'Ariselu & more', te:'అరిసెలు & మరిన్ని'}},
+      {id:'cat_home', name:{en:'Home Food', te:'ఇంటి భోజనం'}, emoji:'🏠', hint:{en:'Home-chef specials', te:'హోమ్ చెఫ్ స్పెషల్'}},
+      {id:'cat_fast', name:{en:'Fast Food', te:'ఫాస్ట్ ఫుడ్'}, emoji:'🍔', hint:{en:'Burgers, rolls', te:'బర్గర్, రోల్'}},
+    ],
+    offers: [
+      {id:'o1', big:{en:'FREE delivery over ₹199', te:'₹199 పైగా ఫ్రీ డెలివరీ'}, small:{en:'Telugu states launch offer', te:'తెలుగు రాష్ట్రాల లాంచ్ ఆఫర్'}},
+      {id:'o2', big:{en:'50% OFF • up to ₹100', te:'50% ఆఫ్ • ₹100 వరకు'}, small:{en:'Use code: TELUGU', te:'కోడ్: TELUGU'}},
+    ],
+    restaurants: [
+      {id:'r1', name:'Andhra Spice Kitchen', area:{en:'Benz Circle', te:'బెన్జ్ సర్కిల్'}, city:'Vijayawada', rating:4.5, time:'28–35 min', fee:19, tags:['Andhra','Meals','Spicy'], featured:true},
+      {id:'r2', name:'Godavari Biryani House', area:{en:'Labbipet', te:'లబ్బీపేట'}, city:'Vijayawada', rating:4.3, time:'25–30 min', fee:29, tags:['Biryani','Dum','Non-veg'], featured:true},
+      {id:'r3', name:'Ulavacharu Tiffins', area:{en:'Madhurawada', te:'మధురవాడ'}, city:'Visakhapatnam', rating:4.2, time:'30–40 min', fee:25, tags:['Tiffins','Veg'], featured:false},
+      {id:'r4', name:'Warangal Mandi Co.', area:{en:'Hanamkonda', te:'హనుమకొండ'}, city:'Warangal', rating:4.6, time:'35–45 min', fee:35, tags:['Mandi','Grill'], featured:true},
+      {id:'r5', name:'Home Chef: Lakshmi', area:{en:'Guntur Central', te:'గుంటూరు సెంట్రల్'}, city:'Guntur', rating:4.7, time:'40–55 min', fee:0, tags:['Home Food','Healthy'], featured:false}
+    ],
+    menuByRestaurant: {
+      r1: [
+        {id:'i1', name:{en:'Andhra Meals (Unlimited)', te:'ఆంధ్ర భోజనం (అన్‌లిమిటెడ్)'}, desc:{en:'Rice, pappu, sambar, fry, curd, pickle', te:'అన్నం, పప్పు, సాంబార్, ఫ్రై, పెరుగు, ఆచారం'}, price:189, veg:true, popular:true},
+        {id:'i2', name:{en:'Gongura Chicken', te:'గోంగూర చికెన్'}, desc:{en:'Tangy gongura, spicy masala', te:'పుల్లటి గోంగూర, కారమైన మసాలా'}, price:259, veg:false, popular:true},
+        {id:'i3', name:{en:'Pesarattu + Upma', te:'పెసరట్టు + ఉప్మా'}, desc:{en:'Crispy, protein-rich', te:'క్రిస్పీ, ప్రోటీన్ రిచ్'}, price:119, veg:true, popular:false},
+      ],
+      r2: [
+        {id:'i4', name:{en:'Chicken Dum Biryani', te:'చికెన్ దమ్ బిర్యానీ'}, desc:{en:'Hyderabadi-style with Andhra spice', te:'ఆంధ్ర టచ్‌తో హైదరాబాది స్టైల్'}, price:249, veg:false, popular:true},
+        {id:'i5', name:{en:'Double Ka Meetha', te:'డబుల్ కా మీఠా'}, desc:{en:'Classic dessert', te:'క్లాసిక్ స్వీట్'}, price:99, veg:true, popular:false},
+      ],
+      r3: [
+        {id:'i6', name:{en:'Idli (4) + Sambar', te:'ఇడ్లీ (4) + సాంబార్'}, desc:{en:'Soft idlis with hot sambar', te:'మృదువైన ఇడ్లీ, వేడి సాంబార్'}, price:79, veg:true, popular:true},
+        {id:'i7', name:{en:'Ghee Dosa', te:'నెయ్యి దోస'}, desc:{en:'Golden & crisp', te:'బంగారు రంగు, క్రిస్పీ'}, price:99, veg:true, popular:false},
+      ],
+      r4: [
+        {id:'i8', name:{en:'Chicken Mandi (Half)', te:'చికెన్ మండీ (హాఫ్)'}, desc:{en:'Smoky rice + grilled chicken', te:'స్మోకీ రైస్ + గ్రిల్ చికెన్'}, price:399, veg:false, popular:true},
+      ],
+      r5: [
+        {id:'i9', name:{en:'Home Veg Thali', te:'ఇంటి వెజ్ థాలి'}, desc:{en:'Simple, clean, home-style', te:'సాదా, శుభ్రం, ఇంటి రుచి'}, price:159, veg:true, popular:true},
+        {id:'i10', name:{en:'Chicken Curry + Rice', te:'చికెన్ కర్రీ + అన్నం'}, desc:{en:'Slow-cooked, mild spice', te:'స్లో కుక్, మైల్డ్ స్పైస్'}, price:219, veg:false, popular:false},
+      ]
+    },
+    searchSuggestions: ['biryani','meals','tiffins','gongura','ulavacharu','Hyderabad style','home food']
+  };
+
+  const main = $('#main');
+  const bottomTabs = $('#bottomTabs');
+
+  function t(key){
+    const L = i18n[state.lang] || i18n.en;
+    return L[key] ?? key;
+  }
+
+  function fmt₹(n){return '₹' + Number(n).toFixed(0)}
+
+  function save(){
+    localStorage.setItem('c9_lang', state.lang);
+    localStorage.setItem('c9_city', state.city);
+    localStorage.setItem('c9_cart', JSON.stringify(state.cart));
+    localStorage.setItem('c9_order', JSON.stringify(state.order));
+  }
+
+  function toast(msg){
+    const el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(()=>el.classList.remove('show'), 1400);
+  }
+
+  function nowTime(){
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mm = String(d.getMinutes()).padStart(2,'0');
+    $('#sbTime').textContent = `${hh}:${mm}`;
+  }
+  setInterval(nowTime, 30000);
+  nowTime();
+
+  function setHeader({title, subtitle, canBack}){
+    $('#headerTitle').textContent = title;
+    $('#headerSubtitle').textContent = subtitle;
+    $('#backBtn').style.visibility = canBack ? 'visible' : 'hidden';
+  }
+
+  function push(route, params={}){
+    state.stack.push({route, params});
+    render();
+  }
+
+  function replace(route, params={}){
+    if(state.stack.length===0) state.stack.push({route, params});
+    else state.stack[state.stack.length-1] = {route, params};
+    render();
+  }
+
+  function pop(){
+    if(state.stack.length>1){
+      state.stack.pop();
+      render();
+    }
+  }
+
+  function setTab(tab){
+    state.tab = tab;
+    // Map tabs to screens
+    if(tab==='home') replace('home');
+    if(tab==='search') replace('search');
+    if(tab==='restaurants') replace('listing');
+    if(tab==='cart') replace('cart');
+    if(tab==='profile') replace('profile');
+    render();
+  }
+
+  function activeRoute(){
+    return state.stack[state.stack.length-1] || {route:'onboarding', params:{}};
+  }
+
+  function renderTabs(){
+    bottomTabs.style.display = (activeRoute().route==='onboarding') ? 'none' : 'block';
+    $$('.tab', bottomTabs).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === state.tab);
+    });
+
+    // Translate tab labels
+    $('#tabHome').textContent = t('home');
+    $('#tabSearch').textContent = t('search');
+    $('#tabRestaurants').textContent = t('restaurants');
+    $('#tabCart').textContent = t('cart');
+    $('#tabProfile').textContent = t('profile');
+  }
+
+  function screenOnboarding(){
+    setHeader({
+      title: t('app'),
+      subtitle: t('orderFoodTe') + ' • ' + t('tagline'),
+      canBack:false
+    });
+
+    const cityChoices = data.cities.map(c => {
+      const active = state.city===c;
+      return `<div class="radio ${active?'active':''}" data-action="pickCity" data-city="${c}">
+        <div class="dot"></div>
+        <div>${c}</div>
+      </div>`;
+    }).join('');
+
+    const langTeActive = state.lang==='te';
+    const langEnActive = state.lang==='en';
+
+    main.innerHTML = `
+      <div class="hero">
+        <div class="brand">
+          <div style="display:flex; gap:10px; align-items:center">
+            <div class="logo">C9</div>
+            <div>
+              <div class="brandName">${t('app')}</div>
+              <div class="tag">${t('orderFoodTe')}</div>
+            </div>
+          </div>
+          <div class="badge yellow" title="Mockup">MVP Mock</div>
+        </div>
+        <div style="margin-top:12px; font-weight:1000; font-size:18px; letter-spacing:-.03em">${t('onboardingTitle')}</div>
+        <div class="smallNote" style="margin-top:8px">${t('onboardingSub')}</div>
+
+        <div class="sectionTitle" style="margin-top:14px">${t('chooseLang')}</div>
+        <div class="langRow">
+          <button class="btn btnSecondary langBtn" data-action="setLang" data-lang="te" style="border-color:${langTeActive?'rgba(255,107,53,.45)':'var(--line)'}; background:${langTeActive?'rgba(255,107,53,.08)':'#fff'}">తెలుగు</button>
+          <button class="btn btnSecondary langBtn" data-action="setLang" data-lang="en" style="border-color:${langEnActive?'rgba(255,107,53,.45)':'var(--line)'}; background:${langEnActive?'rgba(255,107,53,.08)':'#fff'}">English</button>
+        </div>
+
+        <div class="sectionTitle" style="margin-top:14px">${t('chooseCity')}</div>
+        <div class="radioRow">${cityChoices}</div>
+
+        <div class="divider"></div>
+        <button class="btn" data-action="start">${t('continue')}</button>
+        <div class="smallNote" style="margin-top:10px">Tip: Use the bottom tabs and back button to explore 9 screens: Home, Listing, Menu, Item Detail, Cart/Checkout, Tracking, Profile/History, Search, and this Onboarding.</div>
+      </div>
+
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenHome(){
+    setHeader({
+      title: t('orderFoodTe'),
+      subtitle: `${state.city} • ${t('restaurants')} • Telugu-first`,
+      canBack: state.stack.length>1
+    });
+
+    const cats = data.categories.map(c => `
+      <div class="cat" data-action="openCategory" data-cat="${c.name.en}">
+        <div class="emoji">${c.emoji}</div>
+        <div class="name">${state.lang==='te' ? c.name.te : c.name.en}</div>
+        <div class="hint">${state.lang==='te' ? c.hint.te : c.hint.en}</div>
+      </div>
+    `).join('');
+
+    const offers = data.offers.map(o=>`
+      <div class="offer">
+        <div class="big">${state.lang==='te' ? o.big.te : o.big.en}</div>
+        <div class="small">${state.lang==='te' ? o.small.te : o.small.en}</div>
+      </div>
+    `).join('');
+
+    const featured = data.restaurants
+      .filter(r=> r.featured)
+      .slice(0,3)
+      .map(r => restaurantCard(r))
+      .join('');
+
+    main.innerHTML = `
+      <div class="search" data-action="gotoSearch" title="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input aria-label="Search" placeholder="${state.lang==='te' ? 'బిర్యానీ, భోజనం, టిఫిన్లు…' : 'Biryani, meals, tiffins…'}" value="" readonly />
+        <span class="badge yellow">${t('filters')}</span>
+      </div>
+
+      <div class="sectionTitle">${t('offers')}</div>
+      <div class="grid2">${offers}</div>
+
+      <div class="sectionTitle">${t('categories')}</div>
+      <div class="grid2">${cats}</div>
+
+      <div class="row" style="margin-top:14px">
+        <div class="sectionTitle" style="margin:0">${t('featured')}</div>
+        <button class="btn btnSecondary" data-action="viewAll">${t('viewAll')}</button>
+      </div>
+      <div class="list" style="margin-top:10px">${featured}</div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function restaurantCard(r){
+    const Larea = state.lang==='te' ? r.area.te : r.area.en;
+    const cityOk = r.city===state.city || state.city==='Hyderabad';
+    const cityBadge = cityOk ? '' : `<span class="badge">${r.city}</span>`;
+    const ratingBadge = `<span class="badge green">★ ${r.rating.toFixed(1)}</span>`;
+    const timeBadge = `<span class="badge">${r.time}</span>`;
+    const feeBadge = `<span class="badge">${t('deliveryFee')}: ${r.fee===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmt₹(r.fee)}</span>`;
+    const tags = r.tags.slice(0,2).map(x=>`<span class="badge yellow">${x}</span>`).join('');
+
+    return `
+      <div class="rCard" data-action="openRestaurant" data-id="${r.id}">
+        <div class="rTop">
+          <div class="thumb">${r.name.split(' ').slice(0,1).join('').toUpperCase()}</div>
+          <div style="flex:1; min-width:0">
+            <div class="rName">${r.name}</div>
+            <div class="rMeta">${Larea} • ${r.city}</div>
+            <div class="badges">${ratingBadge}${timeBadge}${feeBadge}${tags}${cityBadge}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function screenListing(){
+    setHeader({
+      title: t('restaurants'),
+      subtitle: `${state.city} • ${t('filters')} • ★4+ ${state.filters.rating4plus?'ON':'OFF'}`,
+      canBack: state.stack.length>1
+    });
+
+    // quick filter chips
+    const chips = [
+      {id:'c1', label: state.lang==='te'?'★ 4+':'★ 4+', action:'toggleRating4'},
+      {id:'c2', label: t('vegOnly'), action:'toggleVeg'},
+      {id:'c3', label: state.lang==='te'?'₹30 లోపు ఫీ':'Fee ≤ ₹30', action:'toggleFee30'},
+      {id:'c4', label: state.lang==='te'?'సార్టింగ్':'Sort', action:'cycleSort'},
+    ].map(c=>`<div class="chip" data-action="${c.action}">${c.label}</div>`).join('');
+
+    let list = data.restaurants.slice();
+
+    // filter by city (show also some nearby for demo)
+    list = list.filter(r => r.city===state.city || (state.city==='Hyderabad' ? true : r.featured));
+
+    if(state.filters.rating4plus) list = list.filter(r => r.rating>=4.0);
+    if(state.filters.maxDeliveryFee<=30) list = list.filter(r => r.fee<=30);
+    if(state.filters.vegOnly) list = list.filter(r => (data.menuByRestaurant[r.id]||[]).some(i=>i.veg));
+
+    // sort
+    if(state.filters.sort==='Rating') list.sort((a,b)=>b.rating-a.rating);
+    if(state.filters.sort==='Fastest') list.sort((a,b)=>parseInt(a.time)-parseInt(b.time));
+
+    const html = list.map(restaurantCard).join('') || `<div class="card"><b>No results.</b><div class="smallNote" style="margin-top:6px">Try turning off filters.</div></div>`;
+
+    main.innerHTML = `
+      <div class="search" data-action="gotoSearch">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input aria-label="Search" placeholder="${state.lang==='te' ? 'రెస్టారెంట్ లేదా వంటకం…' : 'Restaurant or dish…'}" readonly />
+        <span class="badge yellow">${state.filters.sort}</span>
+      </div>
+
+      <div class="sectionTitle">${t('filters')}</div>
+      <div class="chips">${chips}</div>
+
+      <div class="sectionTitle" style="margin-top:14px">${state.lang==='te' ? 'ఫలితాలు' : 'Results'}</div>
+      <div class="list">${html}</div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenMenu(){
+    const r = data.restaurants.find(x=>x.id===state.selectedRestaurantId) || data.restaurants[0];
+    setHeader({
+      title: r.name,
+      subtitle: `${state.lang==='te' ? r.area.te : r.area.en} • ★ ${r.rating.toFixed(1)} • ${t('menu')}`,
+      canBack: true
+    });
+
+    const menu = (data.menuByRestaurant[r.id] || []).map(it => {
+      const dot = it.veg ? '<div class="vegDot" title="Veg"></div>' : '<div class="nonVegDot" title="Non-veg"></div>';
+      const name = state.lang==='te' ? it.name.te : it.name.en;
+      const desc = state.lang==='te' ? it.desc.te : it.desc.en;
+      const pop = it.popular ? `<span class="badge yellow">${state.lang==='te'?'పాపులర్':'Popular'}</span>` : '';
+      return `
+        <div class="menuItem">
+          <div class="menuLeft">
+            ${dot}
+            <div style="min-width:0">
+              <div class="mName">${name} ${pop}</div>
+              <div class="mDesc">${desc}</div>
+              <div class="mPrice">${fmt₹(it.price)}</div>
+            </div>
+          </div>
+          <button class="addBtn" data-action="openItem" data-id="${it.id}">${t('customize')}</button>
+        </div>
+      `;
+    }).join('');
+
+    main.innerHTML = `
+      <div class="card">
+        <div class="row">
+          <div>
+            <div style="font-weight:1000">${t('menu')}</div>
+            <div class="smallNote" style="margin-top:6px">${state.lang==='te' ? 'ఐటమ్‌ను ట్యాప్ చేసి కస్టమైజ్ చేయండి.' : 'Tap an item to customize.'}</div>
+          </div>
+          <button class="btn btnSecondary" data-action="gotoCart">${t('cart')} (${cartCount()})</button>
+        </div>
+      </div>
+
+      <div class="sectionTitle">${state.lang==='te' ? 'మెనూ ఐటెమ్స్' : 'Menu items'}</div>
+      <div class="list">${menu}</div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenItemDetail(){
+    const r = data.restaurants.find(x=>x.id===state.selectedRestaurantId) || data.restaurants[0];
+    const items = data.menuByRestaurant[r.id] || [];
+    const it = items.find(x=>x.id===state.selectedItemId) || items[0];
+
+    setHeader({
+      title: (state.lang==='te' ? it.name.te : it.name.en),
+      subtitle: `${r.name} • ${t('customize')}`,
+      canBack: true
+    });
+
+    const choiceSpice = ['Mild','Medium','Spicy'].map((x,idx)=>{
+      const labels = state.lang==='te'
+        ? ['తక్కువ','మీడియమ్','కారం']
+        : ['Mild','Medium','Spicy'];
+      const val = ['mild','medium','spicy'][idx];
+      const active = (activeRoute().params.spice||'medium')===val;
+      return `<div class="chip ${active?'active':''}" data-action="setSpice" data-val="${val}">${labels[idx]}</div>`;
+    }).join('');
+
+    const addOns = [
+      {id:'a1', nameEn:'Extra ghee', nameTe:'ఎక్స్‌ట్రా నెయ్యి', price:15},
+      {id:'a2', nameEn:'Raita', nameTe:'రైతా', price:20},
+      {id:'a3', nameEn:'Papad', nameTe:'పప్పడ్', price:10},
+    ];
+
+    const selectedAddOns = new Set(activeRoute().params.addOns || []);
+
+    const addOnsHtml = addOns.map(a=>{
+      const active = selectedAddOns.has(a.id);
+      return `
+        <div class="rCard" style="padding:10px" data-action="toggleAddon" data-id="${a.id}">
+          <div class="row">
+            <div>
+              <div style="font-weight:950; font-size:13px">${state.lang==='te'?a.nameTe:a.nameEn}</div>
+              <div class="smallNote">+ ${fmt₹(a.price)}</div>
+            </div>
+            <div class="badge ${active?'yellow':''}">${active ? (state.lang==='te'?'ఎంచుకున్నారు':'Selected') : (state.lang==='te'?'ఎంచుకోండి':'Pick')}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    const noteVal = activeRoute().params.note || '';
+
+    main.innerHTML = `
+      <div class="card">
+        <div style="font-weight:1000">${state.lang==='te'?it.desc.te:it.desc.en}</div>
+        <div class="row" style="margin-top:10px">
+          <div class="badge green">${it.veg ? (state.lang==='te'?'వెజ్':'Veg') : (state.lang==='te'?'నాన్-వెజ్':'Non-veg')}</div>
+          <div class="badge">${fmt₹(it.price)}</div>
+        </div>
+      </div>
+
+      <div class="sectionTitle">${t('spicy')}</div>
+      <div class="chips">${choiceSpice}</div>
+
+      <div class="sectionTitle">${t('addOns')}</div>
+      <div class="list">${addOnsHtml}</div>
+
+      <div class="sectionTitle">${t('instructions')}</div>
+      <div class="search" style="padding:12px">
+        <input id="noteInput" placeholder="${state.lang==='te'?'ఉదా: ఉప్పు తక్కువ, కారం ఎక్కువ…':'e.g., less salt, extra spicy…'}" value="${escapeHtml(noteVal)}" />
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:10px">
+        <button class="btn" style="flex:1" data-action="addToCart">${t('addToCart')}</button>
+        <button class="btn btnSecondary" data-action="gotoCart">${t('cart')} (${cartCount()})</button>
+      </div>
+      <div class="footerPad"></div>
+    `;
+
+    // wire note input
+    const note = $('#noteInput');
+    note.addEventListener('input', ()=>{
+      const top = activeRoute();
+      top.params.note = note.value;
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c=>({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    }[c]));
+  }
+
+  function cartCount(){
+    return state.cart.reduce((sum, x)=> sum + x.qty, 0);
+  }
+
+  function cartSubtotal(){
+    return state.cart.reduce((sum, x)=> sum + x.price*x.qty, 0);
+  }
+
+  function screenCart(){
+    setHeader({
+      title: t('cart'),
+      subtitle: state.lang==='te' ? 'చెకౌట్ • చెల్లింపు' : 'Checkout • Payment',
+      canBack: state.stack.length>1
+    });
+
+    const itemsHtml = state.cart.map((x, idx)=>{
+      return `
+        <div class="menuItem">
+          <div class="menuLeft">
+            <div class="thumb" style="width:46px; height:46px">${x.restaurantShort}</div>
+            <div style="min-width:0">
+              <div class="mName">${x.name}</div>
+              <div class="mDesc">${x.meta}</div>
+              <div class="mPrice">${fmt₹(x.price)}</div>
+            </div>
+          </div>
+          <div class="col" style="align-items:flex-end">
+            <div class="stepper" data-action="noop">
+              <button data-action="decQty" data-idx="${idx}">−</button>
+              <div class="qty">${x.qty}</div>
+              <button data-action="incQty" data-idx="${idx}">+</button>
+            </div>
+            <button class="btn btnSecondary" style="padding:8px 10px; border-radius:14px" data-action="removeItem" data-idx="${idx}">${state.lang==='te'?'తొలగించండి':'Remove'}</button>
+          </div>
+        </div>
+      `;
+    }).join('') || `
+      <div class="card">
+        <div style="font-weight:1000">${state.lang==='te'?'మీ కార్ట్ ఖాళీగా ఉంది.':'Your cart is empty.'}</div>
+        <div class="smallNote" style="margin-top:6px">${state.lang==='te'?'రెస్టారెంట్ ఎంచుకుని ఐటెమ్స్ జోడించండి.':'Pick a restaurant and add items.'}</div>
+        <div style="margin-top:12px; display:flex; gap:10px">
+          <button class="btn" data-action="goRestaurants" style="flex:1">${t('restaurants')}</button>
+          <button class="btn btnSecondary" data-action="goHome">${t('home')}</button>
+        </div>
+      </div>
+    `;
+
+    const subtotal = cartSubtotal();
+    const delivery = subtotal>199 ? 0 : 19;
+    const taxes = Math.round(subtotal*0.05);
+    const total = subtotal + delivery + taxes;
+
+    const disabled = state.cart.length===0;
+
+    main.innerHTML = `
+      <div class="list">${itemsHtml}</div>
+
+      <div class="sectionTitle">${t('address')}</div>
+      <div class="card">
+        <div style="font-weight:1000">${state.lang==='te'?'ఇల్లు • ఆఫీస్':'Home • Office'}</div>
+        <div class="smallNote" style="margin-top:6px">${state.lang==='te' ? 'MG రోడ్, విజయవాడ (డెమో)' : 'MG Road, Vijayawada (demo)'}</div>
+        <div class="divider"></div>
+        <div class="row">
+          <div class="badge yellow">${state.lang==='te'?'జాగ్రత్త':'Tip'}</div>
+          <div class="smallNote">${state.lang==='te'?'UPI తో వేగంగా చెల్లించండి.':'Pay faster with UPI.'}</div>
+        </div>
+      </div>
+
+      <div class="sectionTitle">${t('payment')}</div>
+      <div class="chips">
+        <div class="chip active" data-action="noop">${t('upi')}</div>
+        <div class="chip" data-action="noop">${t('cod')}</div>
+      </div>
+
+      <div class="sectionTitle">${state.lang==='te'?'బిల్ వివరాలు':'Bill details'}</div>
+      <div class="card">
+        <div class="kv"><div class="k">${state.lang==='te'?'సబ్‌టోటల్':'Subtotal'}</div><div class="v">${fmt₹(subtotal)}</div></div>
+        <div class="kv" style="margin-top:8px"><div class="k">${t('deliveryFee')}</div><div class="v">${delivery===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmt₹(delivery)}</div></div>
+        <div class="kv" style="margin-top:8px"><div class="k">${state.lang==='te'?'ట్యాక్స్':'Taxes'}</div><div class="v">${fmt₹(taxes)}</div></div>
+        <div class="divider"></div>
+        <div class="kv"><div class="k" style="font-weight:1000; color:#111827">${state.lang==='te'?'మొత్తం':'Total'}</div><div class="v" style="font-size:16px">${fmt₹(total)}</div></div>
+      </div>
+
+      <div style="margin-top:14px">
+        <button class="btn" style="width:100%; opacity:${disabled?0.5:1}" ${disabled?'disabled':''} data-action="placeOrder">${t('payNow')}</button>
+        <div class="smallNote" style="margin-top:8px">${state.lang==='te' ? 'డెమో మాత్రమే: చెల్లింపు సిమ్యులేట్ చేయబడుతుంది.' : 'Demo only: payment is simulated.'}</div>
+      </div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenTracking(){
+    setHeader({
+      title: t('orderTracking'),
+      subtitle: state.order ? `${state.lang==='te'?'ఆర్డర్':'Order'} #${state.order.id} • ${t('est')}: ${state.order.eta}` : (state.lang==='te'?'ఇంకా ఆర్డర్ లేదు':'No order yet'),
+      canBack: state.stack.length>1
+    });
+
+    const steps = state.order ? state.order.steps : [
+      {k: state.lang==='te'?'ఆర్డర్ ప్లేస్ చేయండి':'Place an order', v: state.lang==='te'?'కార్ట్ నుంచి చెల్లించండి.':'Checkout from cart.'},
+    ];
+
+    const stepHtml = steps.map((s,idx)=>`
+      <div class="rCard" style="padding:12px">
+        <div style="font-weight:1000">${idx+1}. ${s.k}</div>
+        <div class="smallNote" style="margin-top:6px">${s.v}</div>
+      </div>
+    `).join('');
+
+    main.innerHTML = `
+      <div class="map">
+        <div style="font-weight:1000; font-size:14px">Map Placeholder</div>
+        <div class="smallNote">${state.lang==='te' ? 'లైవ్ మ్యాప్ (Google Maps) — MVP లో ఇక్కడ చూపిస్తాం.' : 'Live map (Google Maps) — shown here in the MVP.'}</div>
+        <div class="badge yellow">${t('orderTracking')}</div>
+      </div>
+
+      <div class="sectionTitle">${state.lang==='te'?'స్థితి':'Status'}</div>
+      <div class="list">${stepHtml}</div>
+
+      <div style="margin-top:12px; display:flex; gap:10px">
+        <button class="btn btnSecondary" style="flex:1" data-action="simulateMove">${state.lang==='te'?'అప్డేట్ సిమ్యులేట్':'Simulate update'}</button>
+        <button class="btn" style="flex:1" data-action="goHome">${t('home')}</button>
+      </div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenProfile(){
+    setHeader({
+      title: t('profile'),
+      subtitle: state.lang==='te' ? 'ఆర్డర్ చరిత్ర • సెట్టింగ్స్' : 'Order history • Settings',
+      canBack: state.stack.length>1
+    });
+
+    const orders = (JSON.parse(localStorage.getItem('c9_history') || '[]'));
+    const orderCards = orders.slice().reverse().slice(0,6).map(o=>`
+      <div class="rCard" data-action="openTracking" data-id="${o.id}">
+        <div class="row">
+          <div>
+            <div style="font-weight:1000">${o.restaurant}</div>
+            <div class="smallNote">${o.date} • ${o.items} ${state.lang==='te'?'ఐటెమ్స్':'items'} • ${fmt₹(o.total)}</div>
+          </div>
+          <div class="badge green">${state.lang==='te'?'చూడండి':'View'}</div>
+        </div>
+      </div>
+    `).join('') || `
+      <div class="card">
+        <div style="font-weight:1000">${state.lang==='te'?'ఇంకా ఆర్డర్ చరిత్ర లేదు.':'No orders yet.'}</div>
+        <div class="smallNote" style="margin-top:6px">${state.lang==='te'?'మీ మొదటి ఆర్డర్ చేయండి.':'Place your first order.'}</div>
+      </div>
+    `;
+
+    main.innerHTML = `
+      <div class="card">
+        <div class="row">
+          <div>
+            <div style="font-weight:1000">Prakash</div>
+            <div class="smallNote" style="margin-top:4px">+91 •••• •••• 99</div>
+          </div>
+          <button class="btn btnSecondary" data-action="switchCity">${t('city')}: ${state.city}</button>
+        </div>
+        <div class="divider"></div>
+        <div class="chips">
+          <div class="chip" data-action="gotoTracking">${t('orderTracking')}</div>
+          <div class="chip" data-action="gotoSearch">${t('search')}</div>
+          <div class="chip" data-action="clearCart">${state.lang==='te'?'కార్ట్ క్లియర్':'Clear cart'}</div>
+        </div>
+      </div>
+
+      <div class="sectionTitle">${t('pastOrders')}</div>
+      <div class="list">${orderCards}</div>
+
+      <div class="sectionTitle">${state.lang==='te'?'భాష':'Language'}</div>
+      <div class="chips">
+        <div class="chip ${state.lang==='te'?'active':''}" data-action="setLang" data-lang="te">తెలుగు</div>
+        <div class="chip ${state.lang==='en'?'active':''}" data-action="setLang" data-lang="en">English</div>
+      </div>
+      <div class="footerPad"></div>
+    `;
+  }
+
+  function screenSearch(){
+    setHeader({
+      title: t('search'),
+      subtitle: state.lang==='te' ? 'ఫిల్టర్లు • కేటగిరీలు' : 'Filters • Categories',
+      canBack: state.stack.length>1
+    });
+
+    const q = state.searchQuery;
+    const suggestions = data.searchSuggestions.map(s=>`<div class="chip" data-action="setQuery" data-q="${s}">${s}</div>`).join('');
+
+    // Search results across restaurant names & menu items
+    const results = [];
+    const qlc = q.trim().toLowerCase();
+
+    if(qlc){
+      // restaurants
+      data.restaurants.forEach(r=>{
+        if(r.name.toLowerCase().includes(qlc)) results.push({type:'r', r});
+      });
+      // items
+      Object.entries(data.menuByRestaurant).forEach(([rid, items])=>{
+        const r = data.restaurants.find(x=>x.id===rid);
+        items.forEach(it=>{
+          const name = (state.lang==='te'?it.name.te:it.name.en);
+          if(String(name).toLowerCase().includes(qlc)) results.push({type:'i', r, it});
+        });
+      });
+    }
+
+    const filters = `
+      <div class="chips">
+        <div class="chip ${state.filters.rating4plus?'active':''}" data-action="toggleRating4">★ 4+</div>
+        <div class="chip ${state.filters.vegOnly?'active':''}" data-action="toggleVeg">${t('vegOnly')}</div>
+        <div class="chip ${state.filters.maxDeliveryFee<=30?'active':''}" data-action="toggleFee30">${state.lang==='te'?'₹30 లోపు ఫీ':'Fee ≤ ₹30'}</div>
+      </div>
+    `;
+
+    const resHtml = !qlc
+      ? `<div class="card"><div style="font-weight:1000">${state.lang==='te'?'వెతకడం ప్రారంభించండి':'Start searching'}</div><div class="smallNote" style="margin-top:6px">${state.lang==='te'?'సజెషన్లు ట్యాప్ చేయండి లేదా టైప్ చేయండి.':'Tap a suggestion or type.'}</div></div>`
+      : (results.length ? results.slice(0,8).map(x=>{
+          if(x.type==='r') return restaurantCard(x.r);
+          const nm = state.lang==='te'?x.it.name.te:x.it.name.en;
+          return `
+            <div class="rCard" data-action="openItemFromSearch" data-rid="${x.r.id}" data-iid="${x.it.id}">
+              <div class="row">
+                <div>
+                  <div style="font-weight:1000">${nm}</div>
+                  <div class="smallNote">${x.r.name} • ${fmt₹(x.it.price)}</div>
+                </div>
+                <div class="badge yellow">${t('menu')}</div>
+              </div>
+            </div>
+          `;
+      }).join('') : `<div class="card"><div style="font-weight:1000">${state.lang==='te'?'ఫలితాలు లేవు':'No results'}</div><div class="smallNote" style="margin-top:6px">${state.lang==='te'?'ఇంకో పదం ప్రయత్నించండి.':'Try another term.'}</div></div>`);
+
+    main.innerHTML = `
+      <div class="search" style="gap:8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" placeholder="${state.lang==='te'?'ఉదా: బిర్యానీ, భోజనం, గోంగూర…':'e.g., biryani, meals, gongura…'}" value="${escapeHtml(q)}" />
+        <button class="btn btnSecondary" style="padding:9px 10px; border-radius:14px" data-action="clearQuery">${state.lang==='te'?'క్లియర్':'Clear'}</button>
+      </div>
+
+      <div class="sectionTitle">${t('filters')}</div>
+      ${filters}
+
+      <div class="sectionTitle">${state.lang==='te'?'సజెషన్లు':'Suggestions'}</div>
+      <div class="chips">${suggestions}</div>
+
+      <div class="sectionTitle">${state.lang==='te'?'ఫలితాలు':'Results'}</div>
+      <div class="list">${resHtml}</div>
+      <div class="footerPad"></div>
+    `;
+
+    $('#searchInput').addEventListener('input', (e)=>{
+      state.searchQuery = e.target.value;
+      render();
+    });
+  }
+
+  function render(){
+    $('#sbCity').textContent = state.city;
+    renderTabs();
+
+    const {route} = activeRoute();
+
+    // Keep tab highlight coherent
+    const tabByRoute = {
+      home:'home',
+      listing:'restaurants',
+      menu:'restaurants',
+      item:'restaurants',
+      cart:'cart',
+      tracking:'profile',
+      profile:'profile',
+      search:'search',
+      onboarding:null
+    };
+    if(tabByRoute[route]) state.tab = tabByRoute[route];
+
+    // Mark active tab
+    $$('.tab', bottomTabs).forEach(btn => btn.classList.toggle('active', btn.dataset.tab===state.tab));
+
+    if(route==='onboarding') screenOnboarding();
+    if(route==='home') screenHome();
+    if(route==='listing') screenListing();
+    if(route==='menu') screenMenu();
+    if(route==='item') screenItemDetail();
+    if(route==='cart') screenCart();
+    if(route==='tracking') screenTracking();
+    if(route==='profile') screenProfile();
+    if(route==='search') screenSearch();
+
+    save();
+  }
+
+  function ensureHistory(){
+    const h = JSON.parse(localStorage.getItem('c9_history') || '[]');
+    localStorage.setItem('c9_history', JSON.stringify(h));
+  }
+
+  function addHistory(entry){
+    const h = JSON.parse(localStorage.getItem('c9_history') || '[]');
+    h.push(entry);
+    localStorage.setItem('c9_history', JSON.stringify(h));
+  }
+
+  function placeOrder(){
+    if(state.cart.length===0){ toast(state.lang==='te'?'ముందు ఐటెమ్స్ జోడించండి':'Add items first'); return; }
+    const total = cartSubtotal() + (cartSubtotal()>199?0:19) + Math.round(cartSubtotal()*0.05);
+    const rName = state.cart[0]?.restaurantName || 'Restaurant';
+
+    const id = String(Math.floor(100000 + Math.random()*900000));
+    const eta = `${25 + Math.floor(Math.random()*15)}–${45 + Math.floor(Math.random()*10)} min`;
+    const order = {
+      id,
+      eta,
+      restaurant: rName,
+      total,
+      steps: [
+        {k: state.lang==='te'?'ఆర్డర్ కన్ఫర్మ్':'Order confirmed', v: state.lang==='te'?'రెస్టారెంట్ ఆమోదించింది.':'Accepted by restaurant.'},
+        {k: state.lang==='te'?'వంట ప్రారంభం':'Cooking started', v: state.lang==='te'?'మీ ఆహారం తయారవుతోంది.':'Your food is being prepared.'},
+        {k: state.lang==='te'?'డెలివరీ పార్ట్నర్ అసైన్':'Rider assigned', v: state.lang==='te'?'రైడర్ పికప్ కోసం వెళ్తున్నాడు.':'Rider is heading to pickup.'},
+      ],
+      progress: 0
+    };
+
+    state.order = order;
+
+    addHistory({
+      id,
+      restaurant: rName,
+      date: new Date().toLocaleString([], {year:'numeric', month:'short', day:'2-digit', hour:'2-digit', minute:'2-digit'}),
+      items: cartCount(),
+      total
+    });
+
+    state.cart = [];
+    toast(state.lang==='te'?'ఆర్డర్ ప్లేస్ అయ్యింది!':'Order placed!');
+    push('tracking');
+  }
+
+  function simulateMove(){
+    if(!state.order){ toast(state.lang==='te'?'ముందు ఆర్డర్ చేయండి':'Place an order first'); return; }
+    const k = [
+      {k: state.lang==='te'?'పికప్ అయ్యింది':'Picked up', v: state.lang==='te'?'ఆహారం రైడర్ వద్ద ఉంది.':'Food picked up by rider.'},
+      {k: state.lang==='te'?'దారిలో ఉంది':'On the way', v: state.lang==='te'?'మీ చిరునామాకు వస్తోంది.':'Heading to your address.'},
+      {k: state.lang==='te'?'డెలివర్ అయింది':'Delivered', v: state.lang==='te'?'సంతోషంగా తినండి!':'Enjoy your meal!'}
+    ];
+    state.order.progress = Math.min(3, (state.order.progress||0) + 1);
+    if(state.order.progress===1) state.order.steps.push(k[0]);
+    if(state.order.progress===2) state.order.steps.push(k[1]);
+    if(state.order.progress===3) state.order.steps.push(k[2]);
+    toast(state.lang==='te'?'స్టేటస్ అప్డేట్ అయ్యింది':'Status updated');
+    render();
+  }
+
+  // Global event delegation
+  document.addEventListener('click', (e)=>{
+    const tab = e.target.closest('.tab');
+    if(tab){ setTab(tab.dataset.tab); return; }
+
+    const back = e.target.closest('#backBtn');
+    if(back){ pop(); return; }
+
+    const act = e.target.closest('[data-action]');
+    if(!act) return;
+
+    const action = act.dataset.action;
+
+    if(action==='start'){
+      state.stack = [{route:'home', params:{}}];
+      state.tab = 'home';
+      render();
+      toast(state.lang==='te'?'స్వాగతం!':'Welcome!');
+      return;
+    }
+
+    if(action==='setLang'){
+      state.lang = act.dataset.lang;
+      save();
+      toast(state.lang==='te'?'తెలుగు ఆన్':'Telugu ON');
+      render();
+      return;
+    }
+
+    if(action==='pickCity'){
+      state.city = act.dataset.city;
+      save();
+      render();
+      return;
+    }
+
+    if(action==='openCategory'){
+      state.selectedCategory = act.dataset.cat;
+      toast(`${state.selectedCategory}`);
+      replace('listing');
+      return;
+    }
+
+    if(action==='viewAll'){
+      replace('listing');
+      return;
+    }
+
+    if(action==='gotoSearch'){
+      state.tab='search';
+      replace('search');
+      return;
+    }
+
+    if(action==='openRestaurant'){
+      state.selectedRestaurantId = act.dataset.id;
+      push('menu');
+      return;
+    }
+
+    if(action==='openItem'){
+      state.selectedItemId = act.dataset.id;
+      push('item', {spice:'medium', addOns:[], note:''});
+      return;
+    }
+
+    if(action==='setSpice'){
+      activeRoute().params.spice = act.dataset.val;
+      render();
+      return;
+    }
+
+    if(action==='toggleAddon'){
+      const top = activeRoute();
+      top.params.addOns = top.params.addOns || [];
+      const id = act.dataset.id;
+      const s = new Set(top.params.addOns);
+      if(s.has(id)) s.delete(id); else s.add(id);
+      top.params.addOns = Array.from(s);
+      render();
+      return;
+    }
+
+    if(action==='addToCart'){
+      // build cart item
+      const r = data.restaurants.find(x=>x.id===state.selectedRestaurantId);
+      const it = (data.menuByRestaurant[r.id]||[]).find(x=>x.id===state.selectedItemId);
+      const top = activeRoute();
+      const spice = top.params.spice || 'medium';
+      const addOns = top.params.addOns || [];
+      const note = top.params.note || '';
+
+      const addOnPrice = ({a1:15,a2:20,a3:10});
+      const extra = addOns.reduce((sum,id)=>sum+(addOnPrice[id]||0),0);
+
+      const metaParts = [];
+      metaParts.push(state.lang==='te' ? `కారం: ${spice}` : `Spice: ${spice}`);
+      if(addOns.length) metaParts.push(state.lang==='te' ? `అడ్డాన్‌లు: ${addOns.join(', ')}` : `Add-ons: ${addOns.join(', ')}`);
+      if(note.trim()) metaParts.push(state.lang==='te' ? `గమనిక: ${note.trim()}` : `Note: ${note.trim()}`);
+
+      state.cart.push({
+        restaurantId: r.id,
+        restaurantName: r.name,
+        restaurantShort: r.name.split(' ').slice(0,1).join('').toUpperCase(),
+        itemId: it.id,
+        name: (state.lang==='te'?it.name.te:it.name.en),
+        meta: metaParts.join(' • '),
+        price: it.price + extra,
+        qty: 1
+      });
+      toast(state.lang==='te'?'కార్ట్‌లో జోడించాం':'Added to cart');
+      save();
+      replace('cart');
+      state.tab='cart';
+      return;
+    }
+
+    if(action==='gotoCart'){
+      state.tab='cart';
+      replace('cart');
+      return;
+    }
+
+    if(action==='incQty'){
+      const idx = Number(act.dataset.idx);
+      state.cart[idx].qty++;
+      save();
+      render();
+      return;
+    }
+
+    if(action==='decQty'){
+      const idx = Number(act.dataset.idx);
+      state.cart[idx].qty = Math.max(1, state.cart[idx].qty-1);
+      save();
+      render();
+      return;
+    }
+
+    if(action==='removeItem'){
+      const idx = Number(act.dataset.idx);
+      state.cart.splice(idx,1);
+      save();
+      render();
+      return;
+    }
+
+    if(action==='placeOrder'){
+      placeOrder();
+      return;
+    }
+
+    if(action==='simulateMove'){
+      simulateMove();
+      return;
+    }
+
+    if(action==='goRestaurants'){
+      state.tab='restaurants';
+      replace('listing');
+      return;
+    }
+
+    if(action==='goHome'){
+      state.tab='home';
+      replace('home');
+      return;
+    }
+
+    if(action==='gotoTracking'){
+      push('tracking');
+      return;
+    }
+
+    if(action==='openTracking'){
+      // just go to tracking screen for demo
+      push('tracking');
+      return;
+    }
+
+    if(action==='openItemFromSearch'){
+      state.selectedRestaurantId = act.dataset.rid;
+      state.selectedItemId = act.dataset.iid;
+      push('menu');
+      push('item', {spice:'medium', addOns:[], note:''});
+      return;
+    }
+
+    if(action==='setQuery'){
+      state.searchQuery = act.dataset.q;
+      render();
+      return;
+    }
+
+    if(action==='clearQuery'){
+      state.searchQuery = '';
+      render();
+      return;
+    }
+
+    if(action==='toggleRating4'){
+      state.filters.rating4plus = !state.filters.rating4plus;
+      render();
+      return;
+    }
+
+    if(action==='toggleVeg'){
+      state.filters.vegOnly = !state.filters.vegOnly;
+      render();
+      return;
+    }
+
+    if(action==='toggleFee30'){
+      state.filters.maxDeliveryFee = (state.filters.maxDeliveryFee<=30) ? 999 : 30;
+      render();
+      return;
+    }
+
+    if(action==='cycleSort'){
+      const order = ['Relevance','Rating','Fastest'];
+      const i = order.indexOf(state.filters.sort);
+      state.filters.sort = order[(i+1)%order.length];
+      toast(state.filters.sort);
+      render();
+      return;
+    }
+
+    if(action==='switchCity'){
+      const idx = (data.cities.indexOf(state.city) + 1) % data.cities.length;
+      state.city = data.cities[idx];
+      toast(`${t('city')}: ${state.city}`);
+      render();
+      return;
+    }
+
+    if(action==='clearCart'){
+      state.cart = [];
+      toast(state.lang==='te'?'కార్ట్ క్లియర్ అయ్యింది':'Cart cleared');
+      render();
+      return;
+    }
+  });
+
+  $('#langToggle').addEventListener('click', ()=>{
+    state.lang = (state.lang==='te') ? 'en' : 'te';
+    toast(state.lang==='te'?'తెలుగు':'English');
+    render();
+  });
+
+  $('#helpBtn').addEventListener('click', ()=>{
+    const msg = state.lang==='te'
+      ? 'డెమో: కేటగిరీ → రెస్టారెంట్ → మెనూ → ఐటమ్ కస్టమైజ్ → కార్ట్ → చెల్లింపు → ఆర్డర్ ట్రాకింగ్.'
+      : 'Demo: Category → Restaurant → Menu → Customize item → Cart → Pay → Track order.';
+    toast(msg);
+  });
+
+  // Init
+  ensureHistory();
+  state.stack = [{route: (localStorage.getItem('c9_seen') ? 'home' : 'onboarding'), params:{}}];
+  if(state.stack[0].route==='home') state.tab='home';
+  render();
+
+  // mark seen when leaving onboarding
+  const originalPush = push;
+  // Patch start button already sets stack; just set seen when not onboarding
+  const seenTimer = setInterval(()=>{
+    if(activeRoute().route!=='onboarding'){
+      localStorage.setItem('c9_seen','1');
+      clearInterval(seenTimer);
+    }
+  }, 300);
+})();
+</script>
+</body>
+</html>
