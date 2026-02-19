@@ -651,7 +651,7 @@
     return L[key] ?? key;
   }
 
-  function fmt₹(n){return '₹' + Number(n).toFixed(0)}
+  function fmtRupee(n){return '₹' + Number(n).toFixed(0)}
 
   function save(){
     localStorage.setItem('c9_lang', state.lang);
@@ -836,7 +836,7 @@
     const cityBadge = cityOk ? '' : `<span class="badge">${r.city}</span>`;
     const ratingBadge = `<span class="badge green">★ ${r.rating.toFixed(1)}</span>`;
     const timeBadge = `<span class="badge">${r.time}</span>`;
-    const feeBadge = `<span class="badge">${t('deliveryFee')}: ${r.fee===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmt₹(r.fee)}</span>`;
+    const feeBadge = `<span class="badge">${t('deliveryFee')}: ${r.fee===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmtRupee(r.fee)}</span>`;
     const tags = r.tags.slice(0,2).map(x=>`<span class="badge yellow">${x}</span>`).join('');
 
     return `
@@ -919,7 +919,7 @@
             <div style="min-width:0">
               <div class="mName">${name} ${pop}</div>
               <div class="mDesc">${desc}</div>
-              <div class="mPrice">${fmt₹(it.price)}</div>
+              <div class="mPrice">${fmtRupee(it.price)}</div>
             </div>
           </div>
           <button class="addBtn" data-action="openItem" data-id="${it.id}">${t('customize')}</button>
@@ -979,7 +979,7 @@
           <div class="row">
             <div>
               <div style="font-weight:950; font-size:13px">${state.lang==='te'?a.nameTe:a.nameEn}</div>
-              <div class="smallNote">+ ${fmt₹(a.price)}</div>
+              <div class="smallNote">+ ${fmtRupee(a.price)}</div>
             </div>
             <div class="badge ${active?'yellow':''}">${active ? (state.lang==='te'?'ఎంచుకున్నారు':'Selected') : (state.lang==='te'?'ఎంచుకోండి':'Pick')}</div>
           </div>
@@ -994,7 +994,7 @@
         <div style="font-weight:1000">${state.lang==='te'?it.desc.te:it.desc.en}</div>
         <div class="row" style="margin-top:10px">
           <div class="badge green">${it.veg ? (state.lang==='te'?'వెజ్':'Veg') : (state.lang==='te'?'నాన్-వెజ్':'Non-veg')}</div>
-          <div class="badge">${fmt₹(it.price)}</div>
+          <div class="badge">${fmtRupee(it.price)}</div>
         </div>
       </div>
 
@@ -1053,7 +1053,7 @@
             <div style="min-width:0">
               <div class="mName">${x.name}</div>
               <div class="mDesc">${x.meta}</div>
-              <div class="mPrice">${fmt₹(x.price)}</div>
+              <div class="mPrice">${fmtRupee(x.price)}</div>
             </div>
           </div>
           <div class="col" style="align-items:flex-end">
@@ -1106,11 +1106,11 @@
 
       <div class="sectionTitle">${state.lang==='te'?'బిల్ వివరాలు':'Bill details'}</div>
       <div class="card">
-        <div class="kv"><div class="k">${state.lang==='te'?'సబ్‌టోటల్':'Subtotal'}</div><div class="v">${fmt₹(subtotal)}</div></div>
-        <div class="kv" style="margin-top:8px"><div class="k">${t('deliveryFee')}</div><div class="v">${delivery===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmt₹(delivery)}</div></div>
-        <div class="kv" style="margin-top:8px"><div class="k">${state.lang==='te'?'ట్యాక్స్':'Taxes'}</div><div class="v">${fmt₹(taxes)}</div></div>
+        <div class="kv"><div class="k">${state.lang==='te'?'సబ్‌టోటల్':'Subtotal'}</div><div class="v">${fmtRupee(subtotal)}</div></div>
+        <div class="kv" style="margin-top:8px"><div class="k">${t('deliveryFee')}</div><div class="v">${delivery===0 ? (state.lang==='te'?'ఫ్రీ':'FREE') : fmtRupee(delivery)}</div></div>
+        <div class="kv" style="margin-top:8px"><div class="k">${state.lang==='te'?'ట్యాక్స్':'Taxes'}</div><div class="v">${fmtRupee(taxes)}</div></div>
         <div class="divider"></div>
-        <div class="kv"><div class="k" style="font-weight:1000; color:#111827">${state.lang==='te'?'మొత్తం':'Total'}</div><div class="v" style="font-size:16px">${fmt₹(total)}</div></div>
+        <div class="kv"><div class="k" style="font-weight:1000; color:#111827">${state.lang==='te'?'మొత్తం':'Total'}</div><div class="v" style="font-size:16px">${fmtRupee(total)}</div></div>
       </div>
 
       <div style="margin-top:14px">
@@ -1170,7 +1170,7 @@
         <div class="row">
           <div>
             <div style="font-weight:1000">${o.restaurant}</div>
-            <div class="smallNote">${o.date} • ${o.items} ${state.lang==='te'?'ఐటెమ్స్':'items'} • ${fmt₹(o.total)}</div>
+            <div class="smallNote">${o.date} • ${o.items} ${state.lang==='te'?'ఐటెమ్స్':'items'} • ${fmtRupee(o.total)}</div>
           </div>
           <div class="badge green">${state.lang==='te'?'చూడండి':'View'}</div>
         </div>
@@ -1258,7 +1258,7 @@
               <div class="row">
                 <div>
                   <div style="font-weight:1000">${nm}</div>
-                  <div class="smallNote">${x.r.name} • ${fmt₹(x.it.price)}</div>
+                  <div class="smallNote">${x.r.name} • ${fmtRupee(x.it.price)}</div>
                 </div>
                 <div class="badge yellow">${t('menu')}</div>
               </div>
